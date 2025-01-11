@@ -24,12 +24,7 @@ names = model.names
 # Open the video file or webcam
 cap = cv2.VideoCapture('vid.mp4')
 count=0
-area1=[(911,208),(231,221),(299,796),(936,790)]
-area2=[(201,449),(177,453),(420,581),(457,577)]
-enter={}
-list=[]
-exit={}
-list1=[]
+
 while True:
     # Read a frame from the video
     ret, frame = cap.read()
@@ -60,18 +55,14 @@ while True:
             x1,y1,x2,y2=box
             cx=int(x1+x2)//2
             cy=int(y1+y2)//2
-            result =cv2.pointPolygonTest(np.array(area1,np.int32),((cx,cy)),False)
-            if result>=0:
-               cv2.rectangle(frame,(x1,y1),(x2,y2),(0,0,255),2)
-               cvzone.putTextRect(frame,f'{track_id}',(x1,y1),1,1)
-               cv2.circle(frame,(cx,cy),4,(255,0,0),-1)
-               list.append(track_id)
+            cv2.rectangle(frame,(x1,y1),(x2,y2),(0,0,255),2)
+            cvzone.putTextRect(frame,f'{track_id}',(x1,y1),1,1)
+            cv2.circle(frame,(cx,cy),4,(255,0,0),-1)
+               
                                                         
     
     
-    print(len(list))
-    cv2.polylines(frame,[np.array(area1,np.int32)],True,(255,0,255),2)
-#    cv2.polylines(frame,[np.array(area2,np.int32)],True,(255,0,255),2)
+   
 
     # Display the frame
     cv2.imshow("RGB", frame)
